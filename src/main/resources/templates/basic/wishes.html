@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>하고싶은 일 목록</title>
+    <style type="text/css">
+	button{
+		width: 80px;
+		height: 40px;
+		background: #c5cdd2;
+		border: 0px;
+		border-radius: 10px;
+		font-size: 15px;
+	}
+	table{
+		width: 100%;
+		border-collapse: collapse;
+	}
+	thead{
+		background: lightgray;
+	}
+	td,th{
+		text-align: left;
+		padding: 10px;
+		widows: 100px;
+		border-bottom: 1px solid gray;
+	}
+	.wishId{
+		width: 10%;
+		height: 20px;
+	}
+	.wish{
+		width: 40%;
+		height: 20px;
+	}
+	.period{
+		width: 30%;
+		height: 20px;
+	}
+	.cost{
+		width: 20%;
+		height: 20px;
+	}
+</style>
+</head>
+<body>
+<h1>하고싶은 일 목록</h1>
+<button onclick="location.href='addWish.html'"
+        th:onclick="|location.href='@{/basic/wishes/add}'|"><b>등록</b></button>
+<hr>
+<table>
+    <thead>
+    <tr>
+        <th class="wishId">번호</th>
+        <th class="wish">하고싶은 일</th>
+        <th class="period">기간</th>
+        <th class="cost">경비(단위:만원)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="wish : ${wishes}">
+        <td class="wishId"><a href="editWish.html" th:href="@{/basic/wishes/{wishId}(wishId=${wish.id})}" th:text="${wish.id}">1</a></td>
+        <td class="wish"><a href="editWish.html" th:href="@{|/basic/wishes/${wish.id}|}" th:text="${wish.wishName}">테스트 목록1</a></td>
+        <td class="period" th:text="${wish.period}">2022.2.5~2022.2.6</td>
+        <td class="cost" th:text="${wish.cost}">5</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
