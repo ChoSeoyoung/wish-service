@@ -4,46 +4,30 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>하고싶은 일 수정</title>
-    <style type="text/css">
-	button{
-		width: 80px;
-		height: 40px;
-		background: #c5cdd2;
-		border: 0px;
-		border-radius: 10px;
-		font-size: 15px;
-	}
-	label{
-		display: block;
-	}
-	span{
-		margin: 10px;
-		font-size: 20px;
-	}
-	input{
-		margin: 10px;
-		width: 90%;
-		height: 30px;
-	}
-</style>
+    <link href="../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
 <h1>하고싶은 일 수정</h1>
 <hr>
 <form th:action method="post">
-    <label>
-        <div class="title"><span>하고싶은 일</span></div><input type="text" id="wishName" name="wishName"></label>
-    </label>
-    <label>
-        <div class="title"><span>기간</span></div><input type="text" id="period" name="period"></label>
-    </label>
-    <label>
-        <div class="title"><span>경비(단위:만원)</span></div><input type="text" id="cost" name="cost"></label>
-    </label>
-    <button type="submit"><b>수정</b></button>
+    <div class="form-group">
+        <label>하고싶은 일</label>
+        <input type="text" class="form-control" id="wishName" name="wishName" placeholder="제목을 입력하세요">
+    </div>
+    <div class="form-group">
+        <label>기간</label>
+        <input type="text" class="form-control" id="period" name="period" placeholder="기간을 입력하세요">
+    </div>
+    <div class="form-group">
+        <label>경비(단위:만원)</label>
+        <input type="text" class="form-control" id="cost" name="cost" placeholder="경비를 입력하세요">
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">수정</button>
     <button onclick="location.href='wishes.html'"
             th:onclick="|location.href='@{/basic/wishes}'|"
-            type="button"><b>취소</b></button>
+            type="button" class="btn btn-secondary">취소</button>
 </form>
 </body>
 </html>

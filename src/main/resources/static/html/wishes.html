@@ -4,73 +4,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>하고싶은 일 목록</title>
-    <style type="text/css">
-	button{
-		width: 80px;
-		height: 40px;
-		background: #c5cdd2;
-		border: 0px;
-		border-radius: 10px;
-		font-size: 15px;
-	}
-	table{
-		width: 100%;
-		border-collapse: collapse;
-	}
-	thead{
-		background: lightgray;
-	}
-	td,th{
-		text-align: left;
-		padding: 10px;
-		widows: 100px;
-		border-bottom: 1px solid gray;
-	}
-	.wishId{
-		width: 10%;
-		height: 20px;
-	}
-	.wish{
-		width: 40%;
-		height: 20px;
-	}
-	.period{
-		width: 30%;
-		height: 20px;
-	}
-	.cost{
-		width: 20%;
-		height: 20px;
-	}
-</style>
+    <link href="../css/bootstrap.min.css"
+          rel="stylesheet">
 </head>
 <body>
 <h1>하고싶은 일 목록</h1>
-<button><b>등록</b></button>
 <hr>
-<table>
+<table class="table">
     <thead>
     <tr>
-        <th class="wishId">번호</th>
-        <th class="wish">하고싶은 일</th>
-        <th class="period">기간</th>
-        <th class="cost">경비(단위:만원)</th>
+        <th>번호</th>
+        <th>하고싶은 일</th>
+        <th>기간</th>
+        <th>경비(단위:만원)</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td class="wishId"><a href="item.html">1</a></td>
-        <td class="wish"><a href="item.html">테스트 목록1</a></td>
-        <td class="period">2022.2.5~2022.2.6</td>
-        <td class="cost">5</td>
-    </tr>
-    <tr>
-        <td class="wishID"><a href="item.html">2</a></td>
-        <td class="wish"><a href="item.html">테스트 목록2</a></td>
-        <td class="period">23살</td>
-        <td class="cost">20</td>
+        <td><a href="editWish.html">1</a></td>
+        <td><a href="editWish.html">테스트 목록1</a></td>
+        <td>2022.2.5~2022.2.6</td>
+        <td>5</td>
     </tr>
     </tbody>
 </table>
+<button onclick="location.href='addWish.html'"
+        class="btn btn-primary">등록</button>
 </body>
 </html>
