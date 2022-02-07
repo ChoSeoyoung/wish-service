@@ -31,6 +31,11 @@ public class WishRepository {
     }
     public void delete(Long id){
         store.remove(id);
+        for(Long i=id+1;i<=sequence;i++){
+            Wish tempWish = store.get(i);
+            tempWish.setId(i-1);
+        }
+        sequence-=1;
     }
     public void clearStore() {
         store.clear();
