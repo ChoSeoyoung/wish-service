@@ -24,8 +24,8 @@ public class BasicController {
      */
     @PostConstruct
     public void init(){
-        wishRepository.save(new Wish("세계일주하기-유럽여행, 동남아시아여행, 북미 여행", "2022.2.10~2022.2.11",5));
-        wishRepository.save(new Wish("wish2", "23살",20));
+        wishRepository.save(new Wish("세계일주하기-유럽여행, 동남아시아여행, 북미 여행", "2022.2.10~2023.2.11",5));
+        wishRepository.save(new Wish("책 100권 읽기", "23살",20));
     }
 
     @GetMapping
@@ -56,7 +56,7 @@ public class BasicController {
 
         List<Wish> wishes = wishRepository.findAll();
         model.addAttribute("wishes",wishes);
-        return "basic/wishes";
+        return "redirect:/basic/wishes";
     }
 
     @GetMapping("/{wishId}")

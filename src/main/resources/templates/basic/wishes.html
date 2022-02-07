@@ -25,7 +25,7 @@
         <tr th:each="wish : ${wishes}">
             <td><input name="rowCheck" type="checkbox" th:value="${wish.id}"></td>
             <td><a href="editWish.html" th:href="@{/basic/wishes/{wishId}(wishId=${wish.id})}" th:text="${wish.id}">1</a></td>
-            <td><a href="editWish.html" th:href="@{|/basic/wishes/${wish.title}|}" th:text="${wish.title}">테스트 목록1</a></td>
+            <td><a href="editWish.html" th:href="@{|/basic/wishes/${wish.id}|}" th:text="${wish.title}">테스트 목록1</a></td>
             <td th:text="${wish.period}">2022.2.5~2022.2.6</td>
             <td th:text="${wish.cost}">5</td>
         </tr>
