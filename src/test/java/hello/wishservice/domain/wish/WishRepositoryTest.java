@@ -59,8 +59,24 @@ class WishRepositoryTest {
 
         Wish findWish = wishRepository.findById(wishId);
         //then
-        assertThat(findWish.getWishName()).isEqualTo(updateParam.getWishName());
+        assertThat(findWish.getTitle()).isEqualTo(updateParam.getTitle());
         assertThat(findWish.getPeriod()).isEqualTo(updateParam.getPeriod());
         assertThat(findWish.getCost()).isEqualTo(updateParam.getCost());
+    }
+
+    @Test
+    void delete(){
+        //given
+        Wish wish = new Wish("wish1", "2022.2.10~2022.2.11",5);
+        Wish savedWish = wishRepository.save(wish);
+        Long wishId = savedWish.getId();
+
+        //when
+        wishRepository.delete(wishId);
+
+        List<Wish> result = wishRepository.findAll();
+
+        //then
+        assertThat(result.size()).isEqualTo(0);
     }
 }

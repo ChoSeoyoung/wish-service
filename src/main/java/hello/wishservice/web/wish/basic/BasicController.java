@@ -5,9 +5,12 @@ import hello.wishservice.domain.wish.WishRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import java.net.http.HttpRequest;
 import java.util.List;
 
 @Controller
@@ -16,20 +19,27 @@ import java.util.List;
 public class BasicController {
     private final WishRepository wishRepository;
 
-    @GetMapping
-    public String wishes(Model model){
-        List<Wish> wishes = wishRepository.findAll();
-        model.addAttribute("wishes",wishes);
-        return "basic/wishes";
-    }
-
     /**
      * 테스트용 데이터 추가
      */
     @PostConstruct
     public void init(){
-        wishRepository.save(new Wish("wish1", "2022.2.10~2022.2.11",5));
+        wishRepository.save(new Wish("세계일주하기-유럽여행, 동남아시아여행, 북미 여행", "2022.2.10~2022.2.11",5));
         wishRepository.save(new Wish("wish2", "23살",20));
+    }
+
+    @GetMapping
+    public String wishes(HttpServletRequest request, Model model){
+        String[] wishIds = request.getParameterValues("rowCheck");
+        if(wishIds != null){
+            for(String id : wishIds){
+                wishRepository.delete(Long.parseLong(id));
+            }
+        }
+
+        List<Wish> wishes = wishRepository.findAll();
+        model.addAttribute("wishes",wishes);
+        return "basic/wishes";
     }
 
     @GetMapping("/add")

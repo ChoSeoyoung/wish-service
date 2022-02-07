@@ -10,26 +10,31 @@
 <body>
 <h1>하고싶은 일 목록</h1>
 <hr>
-<table class="table">
-    <thead>
-    <tr>
-        <th>번호</th>
-        <th>하고싶은 일</th>
-        <th>기간</th>
-        <th>경비(단위:만원)</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="wish : ${wishes}">
-        <td><a href="editWish.html" th:href="@{/basic/wishes/{wishId}(wishId=${wish.id})}" th:text="${wish.id}">1</a></td>
-        <td><a href="editWish.html" th:href="@{|/basic/wishes/${wish.id}|}" th:text="${wish.wishName}">테스트 목록1</a></td>
-        <td th:text="${wish.period}">2022.2.5~2022.2.6</td>
-        <td th:text="${wish.cost}">5</td>
-    </tr>
-    </tbody>
-</table>
-<button onclick="location.href='addWish.html'"
-        th:onclick="|location.href='@{/basic/wishes/add}'|"
-        class="btn btn-primary">등록</button>
+<form form th:action method="get">
+    <table class="table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>번호</th>
+            <th>하고싶은 일</th>
+            <th>기간</th>
+            <th>경비(단위:만원)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="wish : ${wishes}">
+            <td><input name="rowCheck" type="checkbox" th:value="${wish.id}"></td>
+            <td><a href="editWish.html" th:href="@{/basic/wishes/{wishId}(wishId=${wish.id})}" th:text="${wish.id}">1</a></td>
+            <td><a href="editWish.html" th:href="@{|/basic/wishes/${wish.title}|}" th:text="${wish.title}">테스트 목록1</a></td>
+            <td th:text="${wish.period}">2022.2.5~2022.2.6</td>
+            <td th:text="${wish.cost}">5</td>
+        </tr>
+        </tbody>
+    </table>
+    <button onclick="location.href='addWish.html'" type="button"
+            th:onclick="|location.href='@{/basic/wishes/add}'|"
+            class="btn btn-primary">등록</button>
+    <button class="btn btn-danger" type="submit">삭제</button>
+</form>
 </body>
 </html>

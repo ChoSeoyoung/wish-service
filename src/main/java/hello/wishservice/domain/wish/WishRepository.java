@@ -23,11 +23,14 @@ public class WishRepository {
     public List<Wish> findAll() {
         return new ArrayList<>(store.values());
     }
-    public void update(Long wishId, Wish updateParam) {
-        Wish findWish = findById(wishId);
-        findWish.setWishName(updateParam.getWishName());
+    public void update(Long id, Wish updateParam) {
+        Wish findWish = findById(id);
+        findWish.setTitle(updateParam.getTitle());
         findWish.setPeriod(updateParam.getPeriod());
         findWish.setCost(updateParam.getCost());
+    }
+    public void delete(Long id){
+        store.remove(id);
     }
     public void clearStore() {
         store.clear();
