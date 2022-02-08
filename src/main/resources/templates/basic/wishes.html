@@ -6,11 +6,17 @@
     <title>하고싶은 일 목록</title>
     <link href="../css/bootstrap.min.css"
           th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:inline="javascript">
+        var del = /*[[ @{delete} ]]*/;
+        $("#delete").on("click", function(){
+        $("#frm").attr("action", del);
+        });
+    </script>
 </head>
 <body>
 <h1>하고싶은 일 목록</h1>
 <hr>
-<form form th:action method="get">
+<form id="frm" method="get">
     <table class="table">
         <thead>
         <tr>
@@ -34,7 +40,10 @@
     <button onclick="location.href='addWish.html'" type="button"
             th:onclick="|location.href='@{/basic/wishes/add}'|"
             class="btn btn-primary">등록</button>
-    <button class="btn btn-danger" type="submit">삭제</button>
+    <button class="btn btn-danger" type="submit"
+            th:formaction="@{/basic/wishes/delete}"
+            th:onclick="|location.href='@{/basic/wishes/delete}'|"
+            id="delete">삭제</button>
 </form>
 </body>
 </html>

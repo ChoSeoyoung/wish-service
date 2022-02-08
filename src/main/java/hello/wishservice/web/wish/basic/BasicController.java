@@ -24,19 +24,12 @@ public class BasicController {
      */
     @PostConstruct
     public void init(){
-        wishRepository.save(new Wish("세계일주하기-유럽여행, 동남아시아여행, 북미 여행", "2022.2.10~2023.2.11",5));
+        wishRepository.save(new Wish("세계일주하기-유럽여행, 동남아시아여행, 북미 여행", "2022.2.10~2023.2.11",500));
         wishRepository.save(new Wish("책 100권 읽기", "23살",20));
     }
 
     @GetMapping
-    public String wishes(HttpServletRequest request, Model model){
-        String[] wishIds = request.getParameterValues("rowCheck");
-        if(wishIds != null){
-            for(String id : wishIds){
-                wishRepository.delete(Long.parseLong(id));
-            }
-        }
-
+    public String wishes(Model model){
         List<Wish> wishes = wishRepository.findAll();
         model.addAttribute("wishes",wishes);
         return "basic/wishes";
@@ -67,8 +60,23 @@ public class BasicController {
     @PostMapping("/{wishId}")
     public String edit(@PathVariable Long wishId, @ModelAttribute Wish wish, Model model){
         wishRepository.update(wishId,wish);
+
         List<Wish> wishes = wishRepository.findAll();
         model.addAttribute("wishes",wishes);
         return "basic/wishes";
+    }
+
+    @GetMapping("/delete")
+    public String delete(HttpServletRequest request, Model model){
+        String[] wishIds = request.getParameterValues("rowCheck");
+        if(wishIds != null){
+            for(String id : wishIds){
+                wishRepository.delete(Long.parseLong(id));
+            }
+        }
+
+        List<Wish> wishes = wishRepository.findAll();
+        model.addAttribute("wishes",wishes);
+        return "redirect:/basic/wishes";
     }
 }
