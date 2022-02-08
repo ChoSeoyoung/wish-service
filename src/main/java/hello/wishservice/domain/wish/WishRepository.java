@@ -30,11 +30,13 @@ public class WishRepository {
         findWish.setCost(updateParam.getCost());
     }
     public void delete(Long id){
-        store.remove(id);
+        store.remove(store.get(id));
         for(Long i=id+1;i<=sequence;i++){
             Wish tempWish = store.get(i);
             tempWish.setId(i-1);
+            store.put(i-1,tempWish);
         }
+        store.remove(sequence);
         sequence-=1;
     }
     public void clearStore() {

@@ -26,6 +26,8 @@ public class BasicController {
     public void init(){
         wishRepository.save(new Wish("세계일주하기-유럽여행, 동남아시아여행, 북미 여행", "2022.2.10~2023.2.11",500));
         wishRepository.save(new Wish("책 100권 읽기", "23살",20));
+        wishRepository.save(new Wish("개강", "1학기",400));
+        wishRepository.save(new Wish("나무를 심자", "4월 5일",0));
     }
 
     @GetMapping
@@ -70,8 +72,8 @@ public class BasicController {
     public String delete(HttpServletRequest request, Model model){
         String[] wishIds = request.getParameterValues("rowCheck");
         if(wishIds != null){
-            for(String id : wishIds){
-                wishRepository.delete(Long.parseLong(id));
+            for(int i=0;i<wishIds.length;i++){
+                wishRepository.delete(Long.parseLong(wishIds[i])-i);
             }
         }
 
