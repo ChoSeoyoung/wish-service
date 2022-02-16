@@ -16,7 +16,7 @@
 <body>
 <h1>하고싶은 일 목록</h1>
 <hr>
-<form id="frm" method="get">
+<form id="frm" th:object="${wish}" method="get">
     <table class="table">
         <thead>
         <tr>
@@ -25,6 +25,9 @@
             <th>하고싶은 일</th>
             <th>기간</th>
             <th>경비(단위:만원)</th>
+            <th>지역</th>
+            <th>함께하는 사람</th>
+            <th>공개 여부</th>
         </tr>
         </thead>
         <tbody>
@@ -34,6 +37,11 @@
             <td><a href="editWish.html" th:href="@{|/basic/wishes/${wish.id}|}" th:text="${wish.title}">테스트 목록1</a></td>
             <td th:text="${wish.period}">2022.2.5~2022.2.6</td>
             <td th:text="${wish.cost}">5</td>
+            <td th:text="${wish.regionType.getDescription()}"></td>
+            <td><select disabled>
+                <option th:text="${wish.travelType}"></option>
+            </select></td>
+            <td><input type="checkbox" id="open" name="open" class="form-check-input"></td>
         </tr>
         </tbody>
     </table>

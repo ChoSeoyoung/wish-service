@@ -19,7 +19,7 @@ class WishRepositoryTest {
     @Test
     void save() {
         //given
-        Wish wish = new Wish("wish1", "2022.2.10~2022.2.11",5);
+        Wish wish = new Wish("wish1", "2022.2.10~2022.2.11",5, true, RegionType.DOMESTIC, "ALONE");
 
         //when
         Wish savedWish = wishRepository.save(wish);
@@ -31,8 +31,8 @@ class WishRepositoryTest {
     @Test
     void findAll() {
         //given
-        Wish wish1 = new Wish("wish1", "2022.2.10~2022.2.11",5);
-        Wish wish2 = new Wish("wish2", "23살",20);
+        Wish wish1 = new Wish("wish1", "2022.2.10~2022.2.11",5, true, RegionType.DOMESTIC, "ALONE");
+        Wish wish2 = new Wish("wish2", "23살",20, true, RegionType.DOMESTIC, "ALONE");
 
         wishRepository.save(wish1);
         wishRepository.save(wish2);
@@ -48,13 +48,13 @@ class WishRepositoryTest {
     @Test
     void update() {
         //given
-        Wish wish = new Wish("wish1", "2022.2.10~2022.2.11",5);
+        Wish wish = new Wish("wish1", "2022.2.10~2022.2.11",5, true, RegionType.DOMESTIC, "ALONE");
 
         Wish savedWish = wishRepository.save(wish);
         Long wishId = savedWish.getId();
 
         //when
-        Wish updateParam = new Wish("wish2", "23살", 20);
+        Wish updateParam = new Wish("wish2", "23살", 20, true, RegionType.DOMESTIC, "ALONE");
         wishRepository.update(wishId, updateParam);
 
         Wish findWish = wishRepository.findById(wishId);
@@ -67,7 +67,7 @@ class WishRepositoryTest {
     @Test
     void delete(){
         //given
-        Wish wish = new Wish("wish1", "2022.2.10~2022.2.11",5);
+        Wish wish = new Wish("wish1", "2022.2.10~2022.2.11",5, true, RegionType.DOMESTIC, "ALONE");
         Wish savedWish = wishRepository.save(wish);
         Long wishId = savedWish.getId();
 

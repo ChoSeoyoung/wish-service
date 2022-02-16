@@ -10,18 +10,35 @@
 <body>
 <h1>하고싶은 일 수정</h1>
 <hr>
-<form th:action method="post">
+<form th:action th:object="${wish}" method="post">
     <div class="form-group">
         <label>하고싶은 일</label>
-        <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요">
+        <input type="text" class="form-control" th:field="*{title}" th:value="${wish.title}" placeholder="제목을 입력하세요">
     </div>
     <div class="form-group">
         <label>기간</label>
-        <input type="text" class="form-control" id="period" name="period" placeholder="기간을 입력하세요">
+        <input type="text" class="form-control" th:field="*{period}" th:value="${wish.period}" placeholder="기간을 입력하세요">
     </div>
     <div class="form-group">
         <label>경비(단위:만원)</label>
-        <input type="text" class="form-control" id="cost" name="cost" placeholder="경비를 입력하세요">
+        <input type="text" class="form-control" th:field="*{cost}" th:value="${wish.cost}" placeholder="경비를 입력하세요">
+    </div>
+    <div>
+        <div>지역</div>
+        <div th:each="type : ${regionTypes}" class="form-check form-check-inline">
+            <input type="radio" th:field="*{regionType}"  th:value="${type.name()}" class="form-check-input">
+            <label th:for="${#ids.prev('regionType')}" th:text="${type.description}" class="form-check-label">
+                DOMESTIC
+            </label>
+        </div>
+    </div>
+    <div>
+        <div>함께하는 사람</div>
+        <select th:field="*{travelType}" class="form-select">
+            <option value=""> ==  여행 방식 선택 == </option>
+            <option th:each="travelType : ${travelTypes}" th:value="${travelType.code}" th:text="${travelType.displayName}">ALONE</option>
+            </option>
+        </select>
     </div>
     <br>
     <button type="submit" class="btn btn-primary">수정</button>
