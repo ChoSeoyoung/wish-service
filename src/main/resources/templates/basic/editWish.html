@@ -6,39 +6,68 @@
     <title>하고싶은 일 수정</title>
     <link href="../css/bootstrap.min.css"
           th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+        .field-error{
+            border-color:#dc3545;
+            color:#dc3545;
+        }
+    </style>
 </head>
 <body>
-<h1>하고싶은 일 수정</h1>
+<h1 th:text="#{page.editWish}">하고싶은 일 수정</h1>
 <hr>
 <form th:action th:object="${wish}" method="post">
     <div class="form-group">
-        <label>하고싶은 일</label>
-        <input type="text" class="form-control" th:field="*{title}" th:value="${wish.title}" placeholder="제목을 입력하세요">
+        <label th:text="#{wish.title}">하고싶은 일</label>
+        <input type="text" class="form-control" th:field="*{title}" th:value="${wish.title}" placeholder="제목을 입력하세요"
+               th:class="${errors?.containsKey('wishTitle')} ? 'form-control field-error' : 'form-control'">
+        <div class="field-error" th:if="${errors?.containsKey('wishTitle')}" th:text="${errors['wishTitle']}">
+            여행 제목 오류
+        </div>
     </div>
     <div class="form-group">
-        <label>기간</label>
-        <input type="text" class="form-control" th:field="*{period}" th:value="${wish.period}" placeholder="기간을 입력하세요">
+        <label th:text="#{wish.period}">기간</label>
+        <input type="text" class="form-control" th:field="*{period}" th:value="${wish.period}" placeholder="기간을 입력하세요"
+               th:class="${errors?.containsKey('wishPeriod')} ? 'form-control field-error' : 'form-control'">
+        <div class="field-error" th:if="${errors?.containsKey('wishPeriod')}" th:text="${errors['wishPeriod']}">
+            여행 기간 오류
+        </div>
     </div>
     <div class="form-group">
-        <label>경비(단위:만원)</label>
-        <input type="text" class="form-control" th:field="*{cost}" th:value="${wish.cost}" placeholder="경비를 입력하세요">
-    </div>
-    <div>
-        <div>지역</div>
-        <div th:each="type : ${regionTypes}" class="form-check form-check-inline">
-            <input type="radio" th:field="*{regionType}"  th:value="${type.name()}" class="form-check-input">
-            <label th:for="${#ids.prev('regionType')}" th:text="${type.description}" class="form-check-label">
-                DOMESTIC
-            </label>
+        <label th:text="#{wish.cost}">경비(단위:만원)</label>
+        <input type="text" class="form-control" th:field="*{cost}" th:value="${wish.cost}" placeholder="경비를 입력하세요"
+               th:class="${errors?.containsKey('wishCost')} ? 'form-control field-error' : 'form-control'">
+        <div class="field-error" th:if="${errors?.containsKey('wishCost')}" th:text="${errors['wishCost']}">
+            여행 경비 오류
         </div>
     </div>
     <div>
-        <div>함께하는 사람</div>
-        <select th:field="*{travelType}" class="form-select">
+        <div th:text="#{wish.regionType}">지역</div>
+        <div th:class="${errors?.containsKey('wishRegionType')} ? 'form-check field-error' : 'form-check-inline'">
+            <div th:each="type : ${regionTypes}" class="form-check form-check-inline">
+                <input type="radio" th:field="*{regionType}"  th:value="${type.name()}" class="form-check-input">
+                <label th:for="${#ids.prev('regionType')}" th:text="${type.description}" class="form-check-label">
+                    DOMESTIC
+                </label>
+            </div>
+            <div class="field-error" th:if="${errors?.containsKey('wishRegionType')}" th:text="${errors['wishRegionType']}">
+                여행 지역 오류
+            </div>
+        </div>
+    </div>
+    <div>
+        <div th:text="#{wish.travelType}">함께하는 사람</div>
+        <select th:field="*{travelType}" class="form-select" th:class="${errors?.containsKey('wishTravelType')} ? 'form-select field-error' : 'form-select'">
             <option value=""> ==  여행 방식 선택 == </option>
             <option th:each="travelType : ${travelTypes}" th:value="${travelType.code}" th:text="${travelType.displayName}">ALONE</option>
             </option>
         </select>
+        <div class="field-error" th:if="${errors?.containsKey('wishTravelType')}" th:text="${errors['wishTravelType']}">
+            동행인 설정 오류
+        </div>
     </div>
     <br>
     <button type="submit" class="btn btn-primary">수정</button>

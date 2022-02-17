@@ -14,19 +14,19 @@
     </script>
 </head>
 <body>
-<h1>하고싶은 일 목록</h1>
+<h1 th:text="#{page.wishes}">하고싶은 일 목록</h1>
 <hr>
 <form id="frm" th:object="${wish}" method="get">
     <table class="table">
         <thead>
         <tr>
             <th></th>
-            <th>번호</th>
-            <th>하고싶은 일</th>
-            <th>기간</th>
-            <th>경비(단위:만원)</th>
-            <th>지역</th>
-            <th>함께하는 사람</th>
+            <th th:text="#{wish.id}">번호</th>
+            <th th:text="#{wish.title}">하고싶은 일</th>
+            <th th:text="#{wish.period}">기간</th>
+            <th th:text="#{wish.cost}">경비(단위:만원)</th>
+            <th th:text="#{wish.regionType}">지역</th>
+            <th th:text="#{wish.travelType}">함께하는 사람</th>
             <th>공개 여부</th>
         </tr>
         </thead>

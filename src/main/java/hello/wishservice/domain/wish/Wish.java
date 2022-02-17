@@ -16,13 +16,14 @@ public class Wish {
     public Wish() {
     }
 
+    /*
     public Wish(String title, String period, Integer cost, Boolean open, RegionType regionType) {
         this.title = title;
         this.period = period;
         this.cost = cost;
         this.open = open;
         this.regionType = regionType;
-    }
+    }*/
 
     public Wish(String title, String period, Integer cost, Boolean open, RegionType regionType, String travelType) {
         this.title = title;
