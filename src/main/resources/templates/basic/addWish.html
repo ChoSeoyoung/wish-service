@@ -17,63 +17,65 @@
     </style>
 </head>
 <body>
-<h1 th:text="#{page.addWish}">하고싶은 일 등록</h1>
-<hr>
-<form th:action th:object="${wish}" method="post">
-    <div class="form-group">
-        <label th:text="#{wish.title}">하고싶은 일</label>
-        <input type="text" class="form-control" th:field="*{title}"  placeholder="제목을 입력하세요"
-        th:class="${errors?.containsKey('wishTitle')} ? 'form-control field-error' : 'form-control'">
-        <div class="field-error" th:if="${errors?.containsKey('wishTitle')}" th:text="${errors['wishTitle']}">
-            여행 제목 오류
-        </div>
+<div class="container">
+    <div class="py-5 text-center">
+        <h1 th:text="#{page.addWish}">하고싶은 일 등록</h1>
     </div>
-    <div class="form-group">
-        <label th:text="#{wish.period}">기간</label>
-        <input type="text" class="form-control" th:field="*{period}"  placeholder="기간을 입력하세요"
-               th:class="${errors?.containsKey('wishPeriod')} ? 'form-control field-error' : 'form-control'">
-        <div class="field-error" th:if="${errors?.containsKey('wishPeriod')}" th:text="${errors['wishPeriod']}">
-            여행 기간 오류
+    <hr>
+    <form th:action th:object="${wish}" method="post">
+        <div class="form-group">
+            <label th:text="#{wish.title}">하고싶은 일</label>
+            <input type="text" class="form-control" th:field="*{title}"  placeholder="제목을 입력하세요"
+                   th:errorclass="field-error">
+            <div class="field-error" th:errors="*{title}">
+                여행 제목 오류
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label th:text="#{wish.cost}">경비(단위:만원)</label>
-        <input type="text" class="form-control" th:field="*{cost}"  placeholder="경비를 입력하세요"
-               th:class="${errors?.containsKey('wishCost')} ? 'form-control field-error' : 'form-control'">
-        <div class="field-error" th:if="${errors?.containsKey('wishCost')}" th:text="${errors['wishCost']}">
-            여행 경비 오류
+        <div class="form-group">
+            <label th:text="#{wish.period}">기간</label>
+            <input type="text" class="form-control" th:field="*{period}"  placeholder="기간을 입력하세요"
+                   th:errorclass="field-error">
+            <div class="field-error" th:errors="*{period}">
+                여행 기간 오류
+            </div>
         </div>
-    </div>
-    <div>
-        <div th:text="#{wish.regionType}">지역</div>
-        <div th:class="${errors?.containsKey('wishRegionType')} ? 'form-check field-error' : 'form-check-inline'">
+        <div class="form-group">
+            <label th:text="#{wish.cost}">경비(단위:만원)</label>
+            <input type="text" class="form-control" th:field="*{cost}"  placeholder="경비를 입력하세요"
+                   th:errorclass="field-error">
+            <div class="field-error" th:errors="*{cost}">
+                여행 경비 오류
+            </div>
+        </div>
+        <div class="form-group">
+            <div th:text="#{wish.regionType}">지역</div>
             <div th:each="type : ${regionTypes}" class="form-check form-check-inline">
-                <input type="radio" th:field="*{regionType}"  th:value="${type.name()}" class="form-check-input">
+                <input type="radio" th:field="*{regionType}"  th:errorclass="field-error" th:value="${type.name()}" class="form-check-input">
                 <label th:for="${#ids.prev('regionType')}" th:text="${type.description}" class="form-check-label">
                     DOMESTIC
                 </label>
             </div>
-            <div class="field-error" th:if="${errors?.containsKey('wishRegionType')}" th:text="${errors['wishRegionType']}">
+            <div class="field-error" th:errors="*{regionType}">
                 여행 지역 오류
             </div>
         </div>
-    </div>
-    <div>
-        <div th:text="#{wish.travelType}">함께하는 사람</div>
-        <select th:field="*{travelType}" class="form-select" th:class="${errors?.containsKey('wishTravelType')} ? 'form-select field-error' : 'form-select'">
-            <option value=""> ==  여행 방식 선택 == </option>
-            <option th:each="travelType : ${travelTypes}" th:value="${travelType.code}" th:text="${travelType.displayName}">ALONE</option>
-            </option>
-        </select>
-        <div class="field-error" th:if="${errors?.containsKey('wishTravelType')}" th:text="${errors['wishTravelType']}">
-            동행인 설정 오류
+        <div>
+            <div th:text="#{wish.travelType}">함께하는 사람</div>
+            <select th:field="*{travelType}" class="form-select" th:errorclass="field-error">
+                <option value=""> ==  여행 방식 선택 == </option>
+                <option th:each="travelType : ${travelTypes}" th:value="${travelType.code}" th:text="${travelType.displayName}">ALONE</option>
+                </option>
+            </select>
+            <div class="field-error" th:errors="*{travelType}">
+                동행인 설정 오류
+            </div>
         </div>
-    </div>
-    <br>
-    <button type="submit" class="btn btn-primary">등록</button>
-    <button onclick="location.href='wishes.html'"
-            th:onclick="|location.href='@{/basic/wishes}'|"
-            type="button" class="btn btn-secondary">취소</button>
-</form>
+        <br>
+        <button type="submit" class="btn btn-primary">등록</button>
+        <button onclick="location.href='wishes.html'"
+                th:onclick="|location.href='@{/basic/wishes}'|"
+                type="button" class="btn btn-secondary">취소</button>
+    </form>
+</div>
 </body>
 </html>

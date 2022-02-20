@@ -9,7 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -65,30 +68,30 @@ public class BasicController {
     }
 
     @PostMapping("/add")
-    public String addItem(@ModelAttribute("wish") Wish wish, Model model){
+    public String addItem(@ModelAttribute("wish") Wish wish, BindingResult bindingResult, Model model){
         //검증 오류 결과를 보관
         Map<String, String> errors = new HashMap<>();
 
         //검증 로직
         if(!StringUtils.hasText(wish.getTitle())){
-            errors.put("wishTitle","여행 제목은 필수입니다.");
+            bindingResult.addError(new FieldError("wish","title","여행 제목은 필수입니다."));
         }
         if(!StringUtils.hasText(wish.getPeriod())){
-            errors.put("wishPeriod","여행 기간은 필수입니다.");
+            bindingResult.addError(new FieldError("wish","period","여행 기간은 필수입니다."));
         }
         if(wish.getCost()==null || wish.getCost()<0 || wish.getCost()>9999){
-            errors.put("wishCost","경비는 0 ~ 9999(만원)까지 허용합니다.");
+            bindingResult.addError(new FieldError("wish","cost","경비는 0 ~ 9999(만원)까지 허용합니다."));
         }
         if(wish.getRegionType()==null){
-            errors.put("wishRegionType","여행 지역을 선택해주세요.");
+            bindingResult.addError(new FieldError("wish","regionType","여행 지역을 선택해주세요."));
         }
         if(wish.getTravelType()==""){
-            errors.put("wishTravelType","동행인을 선택해주세요.");
+            bindingResult.addError(new FieldError("wish","travelType","동행인을 선택해주세요."));
         }
 
         //검증에 실패하면 다시 입력 폼으로
-        if(!errors.isEmpty()){
-            model.addAttribute("errors",errors);
+        if(bindingResult.hasErrors()){
+            //log.info("errors={}",bindingResult);
             return "basic/addWish";
         }
 
@@ -110,29 +113,29 @@ public class BasicController {
     }
 
     @PostMapping("/{wishId}")
-    public String wish(@PathVariable Long wishId, @ModelAttribute Wish wish, Model model){
+    public String wish(@PathVariable Long wishId, @ModelAttribute Wish wish, BindingResult bindingResult,Model model){
         //검증 오류 결과를 보관
         Map<String, String> errors = new HashMap<>();
 
         //검증 로직
         if(!StringUtils.hasText(wish.getTitle())){
-            errors.put("wishTitle","여행 제목은 필수입니다.");
+            bindingResult.addError(new FieldError("wish","title","여행 제목은 필수입니다."));
         }
         if(!StringUtils.hasText(wish.getPeriod())){
-            errors.put("wishPeriod","여행 기간은 필수입니다.");
+            bindingResult.addError(new FieldError("wish","period","여행 기간은 필수입니다."));
         }
         if(wish.getCost()==null || wish.getCost()<0 || wish.getCost()>9999){
-            errors.put("wishCost","경비는 0 ~ 9999(만원)까지 허용합니다.");
+            bindingResult.addError(new FieldError("wish","cost","경비는 0 ~ 9999(만원)까지 허용합니다."));
         }
         if(wish.getRegionType()==null){
-            errors.put("wishRegionType","여행 지역을 선택해주세요.");
+            bindingResult.addError(new FieldError("wish","regionType","여행 지역을 선택해주세요."));
         }
         if(wish.getTravelType()==""){
-            errors.put("wishTravelType","동행인을 선택해주세요.");
+            bindingResult.addError(new FieldError("wish","travelType","동행인을 선택해주세요."));
         }
 
         //검증에 실패하면 다시 입력 폼으로
-        if(!errors.isEmpty()){
+        if(bindingResult.hasErrors()){
             model.addAttribute("errors",errors);
             return "basic/editWish";
         }

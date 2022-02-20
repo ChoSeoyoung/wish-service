@@ -14,44 +14,48 @@
     </script>
 </head>
 <body>
-<h1 th:text="#{page.wishes}">하고싶은 일 목록</h1>
-<hr>
-<form id="frm" th:object="${wish}" method="get">
-    <table class="table">
-        <thead>
-        <tr>
-            <th></th>
-            <th th:text="#{wish.id}">번호</th>
-            <th th:text="#{wish.title}">하고싶은 일</th>
-            <th th:text="#{wish.period}">기간</th>
-            <th th:text="#{wish.cost}">경비(단위:만원)</th>
-            <th th:text="#{wish.regionType}">지역</th>
-            <th th:text="#{wish.travelType}">함께하는 사람</th>
-            <th>공개 여부</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="wish : ${wishes}">
-            <td><input name="rowCheck" type="checkbox" th:value="${wish.id}"></td>
-            <td><a href="editWish.html" th:href="@{/basic/wishes/{wishId}(wishId=${wish.id})}" th:text="${wish.id}">1</a></td>
-            <td><a href="editWish.html" th:href="@{|/basic/wishes/${wish.id}|}" th:text="${wish.title}">테스트 목록1</a></td>
-            <td th:text="${wish.period}">2022.2.5~2022.2.6</td>
-            <td th:text="${wish.cost}">5</td>
-            <td th:text="${wish.regionType.getDescription()}"></td>
-            <td><select disabled>
-                <option th:text="${wish.travelType}"></option>
-            </select></td>
-            <td><input type="checkbox" id="open" name="open" class="form-check-input"></td>
-        </tr>
-        </tbody>
-    </table>
-    <button onclick="location.href='addWish.html'" type="button"
-            th:onclick="|location.href='@{/basic/wishes/add}'|"
-            class="btn btn-primary">등록</button>
-    <button class="btn btn-danger" type="submit"
-            th:formaction="@{/basic/wishes/delete}"
-            th:onclick="|location.href='@{/basic/wishes/delete}'|"
-            id="delete">삭제</button>
-</form>
+<div class="container">
+    <div class="py-5 text-center">
+        <h1 th:text="#{page.wishes}">하고싶은 일 목록</h1>
+    </div>
+    <hr>
+    <form id="frm" th:object="${wish}" method="get">
+        <table class="table">
+            <thead>
+            <tr>
+                <th></th>
+                <th th:text="#{wish.id}">번호</th>
+                <th th:text="#{wish.title}">하고싶은 일</th>
+                <th th:text="#{wish.period}">기간</th>
+                <th th:text="#{wish.cost}">경비(단위:만원)</th>
+                <th th:text="#{wish.regionType}">지역</th>
+                <th th:text="#{wish.travelType}">함께하는 사람</th>
+                <th>공개 여부</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="wish : ${wishes}">
+                <td><input name="rowCheck" type="checkbox" th:value="${wish.id}"></td>
+                <td><a href="editWish.html" th:href="@{/basic/wishes/{wishId}(wishId=${wish.id})}" th:text="${wish.id}">1</a></td>
+                <td><a href="editWish.html" th:href="@{|/basic/wishes/${wish.id}|}" th:text="${wish.title}">테스트 목록1</a></td>
+                <td th:text="${wish.period}">2022.2.5~2022.2.6</td>
+                <td th:text="${wish.cost}">5</td>
+                <td th:text="${wish.regionType.getDescription()}"></td>
+                <td><select disabled>
+                    <option th:text="${wish.travelType}"></option>
+                </select></td>
+                <td><input type="checkbox" id="open" name="open" class="form-check-input"></td>
+            </tr>
+            </tbody>
+        </table>
+        <button onclick="location.href='addWish.html'" type="button"
+                th:onclick="|location.href='@{/basic/wishes/add}'|"
+                class="btn btn-primary">등록</button>
+        <button class="btn btn-danger" type="submit"
+                th:formaction="@{/basic/wishes/delete}"
+                th:onclick="|location.href='@{/basic/wishes/delete}'|"
+                id="delete">삭제</button>
+    </form>
+</div>
 </body>
 </html>
