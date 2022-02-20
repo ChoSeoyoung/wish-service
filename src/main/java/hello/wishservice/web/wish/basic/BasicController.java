@@ -69,9 +69,6 @@ public class BasicController {
 
     @PostMapping("/add")
     public String addItem(@ModelAttribute("wish") Wish wish, BindingResult bindingResult, Model model){
-        //검증 오류 결과를 보관
-        Map<String, String> errors = new HashMap<>();
-
         //검증 로직
         if(!StringUtils.hasText(wish.getTitle())){
             bindingResult.addError(new FieldError("wish","title","여행 제목은 필수입니다."));
@@ -80,7 +77,7 @@ public class BasicController {
             bindingResult.addError(new FieldError("wish","period","여행 기간은 필수입니다."));
         }
         if(wish.getCost()==null || wish.getCost()<0 || wish.getCost()>9999){
-            bindingResult.addError(new FieldError("wish","cost","경비는 0 ~ 9999(만원)까지 허용합니다."));
+            bindingResult.addError(new FieldError("wish","cost",wish.getCost(),false,null,null,"경비는 0 ~ 9999(만원)까지 허용합니다."));
         }
         if(wish.getRegionType()==null){
             bindingResult.addError(new FieldError("wish","regionType","여행 지역을 선택해주세요."));
@@ -92,6 +89,7 @@ public class BasicController {
         //검증에 실패하면 다시 입력 폼으로
         if(bindingResult.hasErrors()){
             //log.info("errors={}",bindingResult);
+            System.out.println(model);
             return "basic/addWish";
         }
 
@@ -114,9 +112,6 @@ public class BasicController {
 
     @PostMapping("/{wishId}")
     public String wish(@PathVariable Long wishId, @ModelAttribute Wish wish, BindingResult bindingResult,Model model){
-        //검증 오류 결과를 보관
-        Map<String, String> errors = new HashMap<>();
-
         //검증 로직
         if(!StringUtils.hasText(wish.getTitle())){
             bindingResult.addError(new FieldError("wish","title","여행 제목은 필수입니다."));
@@ -136,7 +131,6 @@ public class BasicController {
 
         //검증에 실패하면 다시 입력 폼으로
         if(bindingResult.hasErrors()){
-            model.addAttribute("errors",errors);
             return "basic/editWish";
         }
 
