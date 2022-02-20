@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -68,8 +69,9 @@ public class BasicController {
     }
 
     @PostMapping("/add")
-    public String addItem(@ModelAttribute("wish") Wish wish, BindingResult bindingResult, Model model){
+    public String addItem(@Validated @ModelAttribute("wish") Wish wish, BindingResult bindingResult, Model model){
         //검증 로직
+        /*
         if(!StringUtils.hasText(wish.getTitle())){
             bindingResult.addError(new FieldError("wish","title","여행 제목은 필수입니다."));
         }
@@ -85,6 +87,7 @@ public class BasicController {
         if(wish.getTravelType()==""){
             bindingResult.addError(new FieldError("wish","travelType","동행인을 선택해주세요."));
         }
+         */
 
         //검증에 실패하면 다시 입력 폼으로
         if(bindingResult.hasErrors()){
@@ -111,8 +114,9 @@ public class BasicController {
     }
 
     @PostMapping("/{wishId}")
-    public String wish(@PathVariable Long wishId, @ModelAttribute Wish wish, BindingResult bindingResult,Model model){
+    public String wish(@PathVariable Long wishId, @Validated @ModelAttribute Wish wish, BindingResult bindingResult, Model model){
         //검증 로직
+        /*
         if(!StringUtils.hasText(wish.getTitle())){
             bindingResult.addError(new FieldError("wish","title","여행 제목은 필수입니다."));
         }
@@ -128,6 +132,7 @@ public class BasicController {
         if(wish.getTravelType()==""){
             bindingResult.addError(new FieldError("wish","travelType","동행인을 선택해주세요."));
         }
+         */
 
         //검증에 실패하면 다시 입력 폼으로
         if(bindingResult.hasErrors()){
